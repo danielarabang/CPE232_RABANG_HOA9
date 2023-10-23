@@ -1,0 +1,10 @@
+- name: Add Prometheus
+  yum_repository:
+    name: prometheus
+    description: Prometheus YUM repository
+    baseurl: https://packagecloud.io/prometheus-rpm/release/el/7/$basearch
+    gpgcheck: no
+    enabled: yes
+
+- name: Install Prometheus
+  yum: name=prometheus state=latest 

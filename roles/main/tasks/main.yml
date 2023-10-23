@@ -1,0 +1,40 @@
+ - name: update package cache for Ubuntu
+   apt:
+     become: yes
+     name: "*"
+     update_cache: yes
+   when: ansible_distribution == "Ubuntu"
+
+ - name: install prometheus for Ubuntu
+   apt:
+     name:
+       - prometheus
+       - prometheus-plugins
+   when: ansible_distribution == "Ubuntu"
+
+ - name: enable and start service for Ubuntu
+   service:
+     name: prometheus
+     state: present
+     enabled: yes
+   when: ansible_distribution == "Ubuntu"
+
+ - name: update package cache for CentOS
+   yum:
+     name: epel-release
+     state: latest
+   when: ansible_distribution == "CentOS"
+
+ - name: install prometheus for CentOS
+   yum:
+     name:
+       - prometheus
+       - prometheus-plugins-all
+   when: ansible_distribution == "CentOS"
+
+ - name: enable and start service for CentOS
+   service:
+     name: prometheus
+     state: started
+     enabled: yes
+   when: ansible_distribution == "CentOS"
